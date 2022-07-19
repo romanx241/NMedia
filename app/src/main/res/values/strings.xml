@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">NMedia</string>
     <string name="nmedia">NMedia!</string>
+    <string name="avatar_description">Author avatar</string>
+    <string name="menu_scrolling">Menu</string>
+    <string name="http_netology_fyb">Link</string>
+    <string name="numberHeart">10</string>
+    <string name="numberLike">5</string>
+    <string name="numberEye">5</string>
+
 </resources>
