@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
 
     <ImageView
@@ -14,8 +15,8 @@
         android:contentDescription="@string/avatar_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
-        tools:srcCompat="@sample/posts_avatars" />
+        android:src="@drawable/ic_launcher_foreground"
+        app:layout_constraintTop_toBottomOf="@+id/headerBarrier" />
 
 
     <TextView
@@ -31,8 +32,8 @@
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@id/avatar"
         app:layout_constraintVertical_chainStyle="spread_inside"
-        tools:text="Нетология. Университет интернет-профессий"
-
+        android:text="@string/zagolovok"
+        app:layout_constraintTop_toBottomOf="@+id/headerBarrier"
         />
 
     <TextView
@@ -44,7 +45,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/authorName"
         app:layout_constraintStart_toStartOf="@+id/authorName"
         app:layout_constraintTop_toBottomOf="@+id/authorName"
-        tools:text="21 мая в 18:35" />
+        android:text="@string/datatime" />
+
 
     <ImageButton
         android:id="@+id/options"
@@ -59,15 +61,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_options_24dp"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/headerBarrier"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="avatar, published, options"
-        />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+        app:layout_constraintTop_toBottomOf="@+id/headerBarrier" />
 
 
     <TextView
@@ -78,107 +73,107 @@
         android:textSize="16sp"
         android:lineHeight="20dp"
         app:layout_constraintTop_toBottomOf="@+id/headerBarrier"
-        tools:text="Привет! Это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, аналитике и управлению. Мы растем и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остается с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее.
-Наша миссия помочь встать на путь роста и начать цепочку перемен."
-        tools:targetApi="p" />
+        android:text="@string/content"
+        tools:targetApi="p"
+        tools:ignore="MissingConstraints" />
+
 
 
     <TextView
         android:id="@+id/link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="200sp"
+        android:layout_height="45sp"
         android:autoLink="web"
         android:linksClickable="true"
-        android:minHeight="24dp"
         android:text="@string/http_netology_fyb"
         app:layout_constraintBottom_toBottomOf="@+id/text"
         app:layout_constraintEnd_toEndOf="@+id/text"
-        app:layout_constraintHorizontal_bias="0.373"
         app:layout_constraintStart_toStartOf="@+id/text"
-        app:layout_constraintTop_toTopOf="@+id/text"
-        app:layout_constraintVertical_bias="0.808"
         tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
+
     <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/footerBarrier"
+        android:id="@+id/headerBarrier"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:barrierDirection="top"
-        app:constraint_referenced_ids="text, link"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="avatar, published, options"
         />
+
 
     <ImageButton
         android:id="@+id/heart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_width="60dp"
+        android:layout_height="41dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/numberHeart"
-        app:layout_constraintEnd_toStartOf="@+id/numberHeart"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_heart_24"
-        tools:ignore="TouchTargetSizeCheck,ImageContrastCheck,DuplicateSpeakableTextCheck"
-        tools:layout_editor_absoluteY="344dp" />
+        android:paddingStart="20dp"
+        app:layout_constraintTop_toBottomOf="@id/text"
+        app:srcCompat="@drawable/ic_favorite_fill0_wght400_grad0_opsz48"
+
+        tools:ignore="RtlSymmetry,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
 
     <TextView
         android:id="@+id/numberHeart"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_width="20dp"
+        android:layout_height="22dp"
         android:text="@string/numberHeart"
-        app:layout_constraintBottom_toBottomOf="@+id/heart"
-        app:layout_constraintTop_toTopOf="@+id/heart"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="46dp" />
+        app:layout_constraintLeft_toRightOf="@+id/heart"
+        app:layout_constraintTop_toBottomOf="@+id/text"
+        tools:ignore="TextContrastCheck"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+
+        />
 
     <ImageButton
         android:id="@+id/like"
-        android:layout_width="32dp"
-        android:layout_height="26dp"
+        android:layout_width="39dp"
+        android:layout_height="43dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/numberLike"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/numberHeart"
-        app:layout_constraintStart_toEndOf="@+id/numberHeart"
-        app:layout_constraintTop_toTopOf="@+id/numberHeart"
-        app:layout_constraintVertical_bias="0.333"
-        app:srcCompat="@drawable/ic_share_24"
-        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
+        app:srcCompat="@drawable/ic_share_fill0_wght400_grad0_opsz48"
+        app:layout_constraintLeft_toRightOf="@id/numberHeart"
+        app:layout_constraintTop_toBottomOf="@id/text"
+        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck"
+        android:layout_marginStart="15dp"
+
+        />
 
     <TextView
         android:id="@+id/numberLike"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:text="@string/numberLike"
-        app:layout_constraintBottom_toBottomOf="@+id/like"
-        app:layout_constraintStart_toEndOf="@+id/like"
-        app:layout_constraintTop_toTopOf="@+id/like"
-        app:layout_constraintVertical_bias="0.482" />
+        app:layout_constraintLeft_toRightOf="@id/like"
+        app:layout_constraintTop_toBottomOf="@id/text"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        />
 
     <ImageButton
         android:id="@+id/Eye"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/numberEye"
-        app:layout_constraintEnd_toStartOf="@+id/numberEye"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        app:srcCompat="@drawable/ic_eye_24"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:srcCompat="@drawable/ic_visibility_fill0_wght400_grad0_opsz48"
+        app:layout_constraintLeft_toRightOf="@id/numberLike"
+        app:layout_constraintTop_toBottomOf="@id/text"
+        android:layout_marginStart="130dp"
+         />
 
     <TextView
         android:id="@+id/numberEye"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="25dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:text="@string/numberEye"
-        app:layout_constraintBottom_toBottomOf="@+id/Eye"
-        app:layout_constraintTop_toTopOf="@+id/Eye"
-        app:layout_constraintVertical_bias="0.454"
-        tools:layout_editor_absoluteX="375dp" />
+        app:layout_constraintLeft_toRightOf="@id/Eye"
+        app:layout_constraintTop_toBottomOf="@id/text"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
 
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
