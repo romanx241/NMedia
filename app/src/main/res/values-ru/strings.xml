@@ -5,8 +5,8 @@
     <string name="avatar_description">Аватар автора</string>
     <string name="menu_scrolling">Меню</string>
     <string name="http_netology_fyb">http://netology.ru/fyb</string>
-    <string name="numberHeart">10</string>
-    <string name="numberLike">5</string>
+    <string name="numberLike">10</string>
+    <string name="numberShare">5</string>
     <string name="numberEye">5</string>
     <string name="content">Привет! Это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу.
         Затем появились курсы по дизайну, аналитике и управлению. Мы растем и помогаем расти студентам: от новичков до уверенных профессионалов.

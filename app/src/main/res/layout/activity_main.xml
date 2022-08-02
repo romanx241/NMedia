@@ -15,12 +15,12 @@
         android:contentDescription="@string/avatar_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_avatar_24"
         app:layout_constraintTop_toBottomOf="@+id/headerBarrier" />
 
 
     <TextView
-        android:id="@+id/authorName"
+        android:id="@+id/author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -33,8 +33,7 @@
         app:layout_constraintTop_toTopOf="@id/avatar"
         app:layout_constraintVertical_chainStyle="spread_inside"
         android:text="@string/zagolovok"
-        app:layout_constraintTop_toBottomOf="@+id/headerBarrier"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/headerBarrier" />
 
     <TextView
         android:id="@+id/published"
@@ -42,9 +41,9 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="@+id/authorName"
-        app:layout_constraintStart_toStartOf="@+id/authorName"
-        app:layout_constraintTop_toBottomOf="@+id/authorName"
+        app:layout_constraintBottom_toBottomOf="@+id/author"
+        app:layout_constraintStart_toStartOf="@+id/author"
+        app:layout_constraintTop_toBottomOf="@+id/author"
         android:text="@string/datatime" />
 
 
@@ -60,13 +59,13 @@
         android:minHeight="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_options_24dp"
+        app:srcCompat="@drawable/ic_options_24"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
         app:layout_constraintTop_toBottomOf="@+id/headerBarrier" />
 
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="25dp"
@@ -86,9 +85,9 @@
         android:autoLink="web"
         android:linksClickable="true"
         android:text="@string/http_netology_fyb"
-        app:layout_constraintBottom_toBottomOf="@+id/text"
-        app:layout_constraintEnd_toEndOf="@+id/text"
-        app:layout_constraintStart_toStartOf="@+id/text"
+        app:layout_constraintBottom_toBottomOf="@+id/content"
+        app:layout_constraintEnd_toEndOf="@+id/content"
+        app:layout_constraintStart_toStartOf="@+id/content"
         tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
 
@@ -97,83 +96,74 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="avatar, published, options"
-        />
+        app:constraint_referenced_ids="avatar, published, options" />
 
 
     <ImageButton
-        android:id="@+id/heart"
+        android:onClick="likeCount"
+        android:id="@+id/like"
         android:layout_width="60dp"
         android:layout_height="41dp"
         android:background="@android:color/transparent"
-        android:contentDescription="@string/numberHeart"
-        android:paddingStart="20dp"
-        app:layout_constraintTop_toBottomOf="@id/text"
-        app:srcCompat="@drawable/ic_favorite_fill0_wght400_grad0_opsz48"
-
-        tools:ignore="RtlSymmetry,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
-
-
-    <TextView
-        android:id="@+id/numberHeart"
-        android:layout_width="20dp"
-        android:layout_height="22dp"
-        android:text="@string/numberHeart"
-        app:layout_constraintLeft_toRightOf="@+id/heart"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        tools:ignore="TextContrastCheck"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="15dp"
-
-        />
-
-    <ImageButton
-        android:id="@+id/like"
-        android:layout_width="39dp"
-        android:layout_height="43dp"
-        android:background="@android:color/transparent"
         android:contentDescription="@string/numberLike"
-        app:srcCompat="@drawable/ic_share_fill0_wght400_grad0_opsz48"
-        app:layout_constraintLeft_toRightOf="@id/numberHeart"
-        app:layout_constraintTop_toBottomOf="@id/text"
-        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck"
-        android:layout_marginStart="15dp"
+        android:paddingStart="20dp"
+        app:layout_constraintTop_toBottomOf="@id/content"
+        app:srcCompat="@drawable/ic_like_24"
+        tools:ignore="DuplicateSpeakableTextCheck,OnClick,RtlSymmetry,TouchTargetSizeCheck" />
 
-        />
 
     <TextView
         android:id="@+id/numberLike"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/size_text_view"
+        android:layout_height="@dimen/size_text_view"
         android:text="@string/numberLike"
-        app:layout_constraintLeft_toRightOf="@id/like"
-        app:layout_constraintTop_toBottomOf="@id/text"
+        app:layout_constraintLeft_toRightOf="@+id/like"
+        app:layout_constraintTop_toBottomOf="@+id/content"
+        tools:ignore="TextContrastCheck"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="15dp"
-        />
+        android:layout_marginStart="15dp" />
 
     <ImageButton
-        android:id="@+id/Eye"
+        android:id="@+id/share"
+        android:layout_width="39dp"
+        android:layout_height="43dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/numberShare"
+        app:srcCompat="@drawable/ic_share_24"
+        app:layout_constraintLeft_toRightOf="@id/numberLike"
+        app:layout_constraintTop_toBottomOf="@id/content"
+        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck"
+        android:layout_marginStart="15dp" />
+
+    <TextView
+        android:id="@+id/numberShare"
+        android:layout_width="@dimen/size_text_view"
+        android:layout_height="@dimen/size_text_view"
+        android:text="@string/numberShare"
+        app:layout_constraintLeft_toRightOf="@id/share"
+        app:layout_constraintTop_toBottomOf="@id/content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp" />
+
+    <ImageButton
+        android:id="@+id/eye"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/numberEye"
-        app:srcCompat="@drawable/ic_visibility_fill0_wght400_grad0_opsz48"
-        app:layout_constraintLeft_toRightOf="@id/numberLike"
-        app:layout_constraintTop_toBottomOf="@id/text"
-        android:layout_marginStart="130dp"
-         />
+        app:srcCompat="@drawable/ic_eye_24"
+        app:layout_constraintLeft_toRightOf="@id/numberShare"
+        app:layout_constraintTop_toBottomOf="@id/content"
+        android:layout_marginStart="130dp" />
 
     <TextView
         android:id="@+id/numberEye"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/size_text_view"
+        android:layout_height="@dimen/size_text_view"
         android:text="@string/numberEye"
-        app:layout_constraintLeft_toRightOf="@id/Eye"
-        app:layout_constraintTop_toBottomOf="@id/text"
+        app:layout_constraintLeft_toRightOf="@id/eye"
+        app:layout_constraintTop_toBottomOf="@id/content"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="5dp"
-
-        />
+        android:layout_marginStart="5dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
