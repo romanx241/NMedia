@@ -1,5 +1,6 @@
 package ru.netology.nmedia.dto
 
+
 data class Post (
     val id: Long,
     val author: String,
@@ -9,5 +10,4 @@ data class Post (
     var countLike: Double,
     var countShare: Double,
     var countEye: Double
-
-    )
+)
