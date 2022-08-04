@@ -3,6 +3,7 @@ package ru.netology.nmedia
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.dto.FunLife
 import ru.netology.nmedia.dto.Post
 
 
@@ -21,9 +22,12 @@ class MainActivity : AppCompatActivity() {
                     "которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия помочь встать на путь роста и начать цепочку перемен",
             published = "21 мая в 18:36",
             likedByMe = false,
+            countLike = 990.0,
+            countShare = 990.0,
+            countEye = 990.0
             )
 
-        val funlife: FunLife = FunLife()
+        val funLife: FunLife = FunLife
 
 
             with(binding) {
@@ -39,13 +43,13 @@ class MainActivity : AppCompatActivity() {
                         if(post.likedByMe)
                             R.drawable.ic_heart_24 else R.drawable.ic_like_24
                     )
-                    funlife.likeCount(numberLike)
+                    funLife.likeCount(numberLike, 990.0)
                 }
                 binding.share.setOnClickListener {
-                    funlife.shareCount(numberShare)
+                    funLife.shareCount(numberShare, 990.0)
                 }
                 binding.eye.setOnClickListener {
-                    funlife.eyeCount(numberEye)
+                    funLife.eyeCount(numberEye, 990.0)
                 }
             }
        }
