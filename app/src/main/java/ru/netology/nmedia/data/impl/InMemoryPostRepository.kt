@@ -5,7 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.dto.Post
 
-    class InMemoryPostRepository : PostRepository {
+
+
+    class InMemoryPostRepository() : PostRepository {
+
         private var post = Post(
             id = 1,
             author = "Нетология. Университет интернет-профессий будущего",
@@ -18,17 +21,23 @@ import ru.netology.nmedia.dto.Post
             countShare = 0.0,
             countEye = 0.0
         )
-        private val data = MutableLiveData(post)
 
+        private val data = MutableLiveData(post)
         override fun get(): LiveData<Post> = data
 
+
         override fun like() {
-            post = post.copy(likedByMe = ! post.likedByMe)
+            post = post.copy(likedByMe = !post.likedByMe)
             data.value = post
+            post.countLike++
+
         }
+        override fun share() {
+            post.countShare++
+             }
 
-        override fun share() {}
-
-
-        override fun eye() {}
+        override fun eye() {
+            post.countEye++
+            }
     }
+
