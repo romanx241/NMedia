@@ -4,7 +4,7 @@ import android.widget.TextView
 
 object FunLife {
 
-    fun likeCount(numberLike: TextView, post: Post) {
+    fun onLikeClicked(numberLike: TextView, post: Post) {
         when(post.countLike.toInt()){
             in 0..999 -> usingJavaStringFormat(post.countLike, 0).also { numberLike.text = it }
             in 999..1100 -> (usingJavaStringFormat(post.countLike / 1000, 0) + "K").also { numberLike.text = it }

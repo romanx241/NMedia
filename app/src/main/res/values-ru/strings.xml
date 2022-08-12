@@ -14,5 +14,12 @@
         Наша миссия помочь встать на путь роста и начать цепочку перемен -> </string>
     <string name="zagolovok">Нетология. Университет интернет-профессий</string>
     <string name="datatime">21 мая в 18:35</string>
+    <string name="remove">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="save">Сохранить</string>
+    <string name="post_text">Текст поста</string>
+    <string name="description_post_like">Нажать</string>
+    <string name="description">Отмена</string>
+    <string name="pencilImage">Карандаш</string>
 
 </resources>

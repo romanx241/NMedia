@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">NMedia</string>
-<!--    <string name="nmedia">NMedia!</string>-->
     <string name="avatar_description">Author avatar</string>
     <string name="menu_scrolling">Menu</string>
     <string name="http_netology_fyb">Link</string>
@@ -13,5 +12,17 @@
         Наша миссия помочь встать на путь роста и начать цепочку перемен -> </string>
     <string name="zagolovok">Нетология. Университет интернет-профессий</string>
     <string name="datatime">21 мая в 18:35</string>
+    <string name="remove">Remove</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="post_text">Post text</string>
+    <string name="description_post_like">Like</string>
+    <string name="description">Cancel</string>
+    <string name="pencilImage">Pencil</string>
+
+
+
+
+
 
 </resources>
