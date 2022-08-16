@@ -2,8 +2,9 @@ package ru.netology.nmedia.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.ViewGroup
-import android.widget.PopupMenu
+import androidx.appcompat.widget.CustomPopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -46,13 +47,15 @@ internal class PostAdapter(
 
         private lateinit var post: Post
 
+
         private val popupMenu by lazy {
-            PopupMenu(itemView.context, binding.options).apply {
+            CustomPopupMenu(itemView.context, binding.options).apply {
                 inflate(R.menu.options_post)
                 setOnMenuItemClickListener { menuItem ->
                     when(menuItem.itemId){
                         R.id.remove -> {
                             listener.onRemoveClicked(post)
+
                             true
                         }
                        R.id.edit -> {
@@ -64,6 +67,17 @@ internal class PostAdapter(
                 }
             }
         }
+
+        private fun poMenu() {
+            if(post.content.isNotBlank()) {
+                popupMenu.menu.add(0, R.id.edit, Menu.NONE, itemView.context.getString(R.string.edit)).apply {
+                    setIcon(R.drawable.ic_baseline_edit_24)
+                }
+            }
+             popupMenu.menu.add(0, R.id.remove, Menu.NONE, itemView.context.getString(R.string.remove)).apply {
+                 setIcon(R.drawable.ic_baseline_delete_24)
+             }
+        }
         init {
             binding.like.setOnClickListener {
                 listener.onLikeClicked(post)
@@ -74,24 +88,29 @@ internal class PostAdapter(
             binding.eye.setOnClickListener {
                 eyeCount(post)
             }
+            binding.options.setOnClickListener { poMenu()
+            }
+            binding.options.setOnClickListener{ popupMenu.show()
+            }
+
         }
+
         fun bind(post: Post) {
             this.post = post
             with(binding) {
                 author.text = post.author
                 published.text = post.published
                 content.text = post.content
-               like.setImageResource(
-                    if (post.likedByMe)
-                        R.drawable.ic_heart_24 else R.drawable.ic_like_24
-                )
-                funLife.onLikeClicked(numberLike, post)
-                funLife.shareCount(numberShare, post)
-                funLife.eyeCount(numberEye, post)
-                options.setOnClickListener{ popupMenu.show() }
+                like.text = post.likes.toString()
+                like.isChecked = post.likedByMe
+                funLife.onLikeClicked(like, post)
+                funLife.shareCount(share, post)
+                funLife.eyeCount(eye, post)
+
             }
         }
     }
+
     private object DiffCallback : DiffUtil.ItemCallback<Post>() {
         override fun areItemsTheSame(oldItem: Post, newItem: Post) =
             oldItem.id == newItem.id

@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             group.visibility = View.GONE
             contentEditText.setOnClickListener {
                 cancel.visibility = View.VISIBLE
-                pencil.visibility = View.VISIBLE
+                pencil.visibility = View.INVISIBLE
             }
         }
     }
