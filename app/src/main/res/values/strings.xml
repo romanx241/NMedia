@@ -20,6 +20,12 @@
     <string name="description">Cancel</string>
     <string name="pencilImage">Pencil</string>
     <string name="action_settings">Menu</string>
+    <string name="chooser_share_post">Share post</string>
+    <string name="add_post">Add post</string>
+    <string name="description_post_save">Save</string>
+    <string name="description_post_edit">EditPost</string>
+
+
 
 
 
