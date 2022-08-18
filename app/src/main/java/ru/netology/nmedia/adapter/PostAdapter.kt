@@ -68,7 +68,7 @@ internal class PostAdapter(
             }
         }
 
-        private fun poMenu() {
+        private fun popMenu() {
             if(post.content.isNotBlank()) {
                 popupMenu.menu.add(0, R.id.edit, Menu.NONE, itemView.context.getString(R.string.edit)).apply {
                     setIcon(R.drawable.ic_baseline_edit_24)
@@ -83,12 +83,14 @@ internal class PostAdapter(
                 listener.onLikeClicked(post)
             }
             binding.share.setOnClickListener {
+                listener.onShareClicked(post)
                 shareCount(post)
             }
             binding.eye.setOnClickListener {
                 eyeCount(post)
             }
-            binding.options.setOnClickListener { poMenu()
+
+            binding.options.setOnClickListener { popMenu()
             }
             binding.options.setOnClickListener{ popupMenu.show()
             }
