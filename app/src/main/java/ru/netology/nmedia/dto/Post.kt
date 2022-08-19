@@ -10,5 +10,9 @@ data class Post (
     var likes: Int = 0,
     var countLike: Double,
     var countShare: Double,
-    var countEye: Double
-)
+    var countEye: Double,
+    val videoUrl: String?,
+
+) {
+        val videoAttachment = videoUrl != null
+}

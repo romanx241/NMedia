@@ -3,6 +3,7 @@ package ru.netology.nmedia.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.CustomPopupMenu
 import androidx.recyclerview.widget.DiffUtil
@@ -47,7 +48,6 @@ internal class PostAdapter(
 
         private lateinit var post: Post
 
-
         private val popupMenu by lazy {
             CustomPopupMenu(itemView.context, binding.options).apply {
                 inflate(R.menu.options_post)
@@ -55,29 +55,18 @@ internal class PostAdapter(
                     when(menuItem.itemId){
                         R.id.remove -> {
                             listener.onRemoveClicked(post)
-
                             true
                         }
-                       R.id.edit -> {
-                           listener.onEditClicked(post)
-                           true
-                       }
+                        R.id.edit -> {
+                            listener.onEditClicked(post)
+                            true
+                        }
                         else -> false
                     }
                 }
             }
         }
 
-        private fun popMenu() {
-            if(post.content.isNotBlank()) {
-                popupMenu.menu.add(0, R.id.edit, Menu.NONE, itemView.context.getString(R.string.edit)).apply {
-                    setIcon(R.drawable.ic_baseline_edit_24)
-                }
-            }
-             popupMenu.menu.add(0, R.id.remove, Menu.NONE, itemView.context.getString(R.string.remove)).apply {
-                 setIcon(R.drawable.ic_baseline_delete_24)
-             }
-        }
         init {
             binding.like.setOnClickListener {
                 listener.onLikeClicked(post)
@@ -89,12 +78,26 @@ internal class PostAdapter(
             binding.eye.setOnClickListener {
                 eyeCount(post)
             }
+            binding.videoFrameInPost.videoPoster.setOnClickListener {
+                listener.onVideoClicked(post)
+            }
 
             binding.options.setOnClickListener { popMenu()
             }
             binding.options.setOnClickListener{ popupMenu.show()
             }
 
+        }
+
+        private fun popMenu() {
+            if(post.content.isNotBlank()) {
+                popupMenu.menu.add(0, R.id.edit, Menu.NONE, itemView.context.getString(R.string.edit)).apply {
+                    setIcon(R.drawable.ic_baseline_edit_24)
+                }
+            }
+            popupMenu.menu.add(0, R.id.remove, Menu.NONE, itemView.context.getString(R.string.remove)).apply {
+                setIcon(R.drawable.ic_baseline_delete_24)
+            }
         }
 
         fun bind(post: Post) {
@@ -108,7 +111,12 @@ internal class PostAdapter(
                 funLife.onLikeClicked(like, post)
                 funLife.shareCount(share, post)
                 funLife.eyeCount(eye, post)
-
+                if (post.videoUrl != null) {
+                    videoFrameInPost.root.visibility = View.VISIBLE
+                    videoFrameInPost.videoUrl.text = post.videoUrl
+                } else {
+                    videoFrameInPost.root.visibility = View.GONE
+                }
             }
         }
     }

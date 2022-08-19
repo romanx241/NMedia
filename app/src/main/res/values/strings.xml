@@ -24,7 +24,8 @@
     <string name="add_post">Add post</string>
     <string name="description_post_save">Save</string>
     <string name="description_post_edit">EditPost</string>
-
+    <string name="description_post_play">PlayVideo</string>
+    <string name="poster_of_video">PosterVideo</string>
 
 
 

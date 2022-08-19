@@ -17,6 +17,7 @@ class PostViewModel: ViewModel(), PostInteractionListener {
     val sharePostContent = SingleLiveEvent<String>()
     val navigatePostContentScreenEvent = SingleLiveEvent<Unit>()
     val editPostContent = SingleLiveEvent<String>()
+    val playVideoContent = SingleLiveEvent<String>()
 
 
     override fun onLikeClicked(post: Post) = repository.like(post.id)
@@ -33,6 +34,7 @@ class PostViewModel: ViewModel(), PostInteractionListener {
 
     fun eyeCount(post: Post) = repository.eye(post.id)
 
+
     fun onSaveButtonClicked(content: String){
         if(content.isBlank()) return
         val post = currentPost.value?.copy(
@@ -44,9 +46,15 @@ class PostViewModel: ViewModel(), PostInteractionListener {
             published = "Today",
             countLike = 990.0,
             countShare = 990.0,
-            countEye = 990.0
+            countEye = 990.0,
+            videoUrl = null
         )
         repository.save(post)
         currentPost.value = null
+    }
+    override fun onVideoClicked(post: Post) {
+        post.videoAttachment.let {
+            playVideoContent.value = it.toString()
+        }
     }
 }

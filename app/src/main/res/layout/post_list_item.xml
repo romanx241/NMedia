@@ -127,5 +127,13 @@
         tools:text="990"
         />
 
+   <include
+    android:id="@+id/videoFrameInPost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    layout="@layout/video_content_activity"
+    android:visibility="gone"
+       />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
