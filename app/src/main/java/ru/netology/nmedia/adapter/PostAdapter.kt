@@ -86,7 +86,6 @@ internal class PostAdapter(
             }
             binding.options.setOnClickListener{ popupMenu.show()
             }
-
         }
 
         private fun popMenu() {
