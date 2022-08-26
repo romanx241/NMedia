@@ -18,8 +18,7 @@ import ru.netology.nmedia.dto.Post
                 likedByMe = false,
                 countLike = 990.0,
                 countShare = 990.0,
-                countEye = 990.0,
-                videoUrl = null
+                countEye = 990.0
             )
         }
         val data = MutableLiveData(posts)

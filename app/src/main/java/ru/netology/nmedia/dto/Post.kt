@@ -1,8 +1,6 @@
 package ru.netology.nmedia.dto
 
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class Post (
     var id: Long,
     val author: String,
@@ -12,9 +10,5 @@ data class Post (
     var likes: Int = 0,
     var countLike: Double,
     var countShare: Double,
-    var countEye: Double,
-    val videoUrl: String?,
-
-) {
-        val videoAttachment = videoUrl != null
-}
+    var countEye: Double
+)

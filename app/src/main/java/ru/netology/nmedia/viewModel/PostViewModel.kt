@@ -1,25 +1,18 @@
 package ru.netology.nmedia.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.adapter.PostInteractionListener
 import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.data.impl.FilePostRepository
+import ru.netology.nmedia.data.impl.InMemoryPostRepository
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.util.SingleLiveEvent
 
 
-class PostViewModel(application: Application): AndroidViewModel(application), PostInteractionListener {
+class PostViewModel: ViewModel(), PostInteractionListener {
 
-     private val repository: PostRepository = FilePostRepository(application)
-    val data = repository.getAll()
-    private val currentPost = MutableLiveData<Post?>(null)
-    val sharePostContent = SingleLiveEvent<String>()
-    val navigatePostContentScreenEvent = SingleLiveEvent<Unit>()
-    val editPostContent = SingleLiveEvent<String>()
-    val playVideoContent = SingleLiveEvent<String>()
-
+    private val repository: PostRepository = InMemoryPostRepository()
+    val data  = repository.getAll()
+    val currentPost = MutableLiveData<Post?>(null)
 
     override fun onLikeClicked(post: Post) = repository.like(post.id)
 
@@ -27,14 +20,9 @@ class PostViewModel(application: Application): AndroidViewModel(application), Po
 
     override fun onEditClicked(post: Post) { currentPost.value = post }
 
-    override fun onShareClicked(post: Post) { sharePostContent.value = post.content }
-
-    fun onAddClicked() {navigatePostContentScreenEvent.call()}
-
     fun shareCount(post: Post) = repository.share(post.id)
 
     fun eyeCount(post: Post) = repository.eye(post.id)
-
 
     fun onSaveButtonClicked(content: String){
         if(content.isBlank()) return
@@ -47,15 +35,9 @@ class PostViewModel(application: Application): AndroidViewModel(application), Po
             published = "Today",
             countLike = 990.0,
             countShare = 990.0,
-            countEye = 990.0,
-            videoUrl = null
+            countEye = 990.0
         )
         repository.save(post)
         currentPost.value = null
-    }
-    override fun onVideoClicked(post: Post) {
-        post.videoAttachment.let {
-            playVideoContent.value = it.toString()
-        }
     }
 }

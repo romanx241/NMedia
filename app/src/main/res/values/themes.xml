@@ -13,33 +13,4 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-
-    <style name="Widget.AppTheme.LikeCheckbox" parent="Widget.MaterialComponents.Button.TextButton.Icon">
-        <item name="iconTint">@color/like_checkbox_tint</item>
-        <item name="android:minWidth">@dimen/icon_button_min_size</item>
-        <item name="android:minHeight">@dimen/icon_button_min_size</item>
-        <item name="android:textSize">@dimen/icon_size</item>
-
-    </style>
-    <style name="Widget.AppTheme.Share" parent="Widget.MaterialComponents.Button.TextButton.Icon">
-        <item name="iconTint">@color/share_tint</item>
-        <item name="android:textSize">@dimen/icon_size</item>
-        <item name="android:minWidth">@dimen/icon_button_min_size</item>
-        <item name="android:minHeight">@dimen/icon_button_min_size</item>
-
-    </style>
-    <style name="Widget.AppTheme.Eye" parent="Widget.MaterialComponents.Button.TextButton.Icon">
-        <item name="iconTint">@color/eye_tint</item>
-        <item name="android:textSize">@dimen/icon_size</item>
-        <item name="android:minWidth">@dimen/icon_button_min_size</item>
-        <item name="android:minHeight">@dimen/icon_button_min_size</item>
-
-
-    </style>
-    <style name="Widget.AppTheme.Options" parent="Widget.MaterialComponents.Button.TextButton.Icon">
-        <item name="iconTint">@color/options_tint</item>
-        <item name="android:textSize">@dimen/text_size_options</item>
-    </style>
-
 </resources>
-

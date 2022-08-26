@@ -9,7 +9,7 @@
     <string name="content">Привет! Это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу.
         Затем появились курсы по дизайну, аналитике и управлению. Мы растем и помогаем расти студентам: от новичков до уверенных профессионалов.
         Но самое важное остается с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее.
-        Наша миссия помочь встать на путь роста и начать цепочку перемен -> http://netolo.gy/fyb</string>
+        Наша миссия помочь встать на путь роста и начать цепочку перемен -> </string>
     <string name="zagolovok">Нетология. Университет интернет-профессий</string>
     <string name="datatime">21 мая в 18:35</string>
     <string name="remove">Remove</string>
@@ -19,20 +19,7 @@
     <string name="description_post_like">Like</string>
     <string name="description">Cancel</string>
     <string name="pencilImage">Pencil</string>
-    <string name="action_settings">Menu</string>
-    <string name="chooser_share_post">Share post</string>
-    <string name="add_post">Add post</string>
-    <string name="description_post_save">Save</string>
-    <string name="description_post_edit">EditPost</string>
-    <string name="description_post_play">PlayVideo</string>
-    <string name="poster_of_video">PosterVideo</string>
-
-
-
-
-
-
-
+    <string name="error_empty_content">empty_content</string>
 
 
 </resources>

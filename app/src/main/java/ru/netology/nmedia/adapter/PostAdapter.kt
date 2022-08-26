@@ -2,10 +2,8 @@ package ru.netology.nmedia.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.CustomPopupMenu
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -49,7 +47,7 @@ internal class PostAdapter(
         private lateinit var post: Post
 
         private val popupMenu by lazy {
-            CustomPopupMenu(itemView.context, binding.options).apply {
+            PopupMenu(itemView.context, binding.options).apply {
                 inflate(R.menu.options_post)
                 setOnMenuItemClickListener { menuItem ->
                     when(menuItem.itemId){
@@ -57,69 +55,43 @@ internal class PostAdapter(
                             listener.onRemoveClicked(post)
                             true
                         }
-                        R.id.edit -> {
-                            listener.onEditClicked(post)
-                            true
-                        }
+                       R.id.edit -> {
+                           listener.onEditClicked(post)
+                           true
+                       }
                         else -> false
                     }
                 }
             }
         }
-
         init {
             binding.like.setOnClickListener {
                 listener.onLikeClicked(post)
             }
             binding.share.setOnClickListener {
-                listener.onShareClicked(post)
                 shareCount(post)
             }
             binding.eye.setOnClickListener {
                 eyeCount(post)
             }
-            binding.videoFrameInPost.videoPoster.setOnClickListener {
-                listener.onVideoClicked(post)
-            }
-
-            binding.options.setOnClickListener { popMenu()
-            }
-            binding.options.setOnClickListener{ popupMenu.show()
-            }
         }
-
-        private fun popMenu() {
-            if(post.content.isNotBlank()) {
-                popupMenu.menu.add(0, R.id.edit, Menu.NONE, itemView.context.getString(R.string.edit)).apply {
-                    setIcon(R.drawable.ic_baseline_edit_24)
-                }
-            }
-            popupMenu.menu.add(0, R.id.remove, Menu.NONE, itemView.context.getString(R.string.remove)).apply {
-                setIcon(R.drawable.ic_baseline_delete_24)
-            }
-        }
-
         fun bind(post: Post) {
             this.post = post
             with(binding) {
                 author.text = post.author
                 published.text = post.published
                 content.text = post.content
-                like.text = post.likes.toString()
-                like.isChecked = post.likedByMe
-                funLife.onLikeClicked(like, post)
-                funLife.shareCount(share, post)
-                funLife.eyeCount(eye, post)
-                if (post.videoUrl != null) {
-                    videoFrameInPost.root.visibility = View.VISIBLE
-                    videoFrameInPost.videoUrl.text = post.videoUrl
-                } else {
-                    videoFrameInPost.root.visibility = View.GONE
-                }
+               like.setImageResource(
+                    if (post.likedByMe)
+                        R.drawable.ic_heart_24 else R.drawable.ic_like_24
+                )
+                funLife.onLikeClicked(numberLike, post)
+                funLife.shareCount(numberShare, post)
+                funLife.eyeCount(numberEye, post)
+                options.setOnClickListener{ popupMenu.show() }
             }
         }
     }
-
     private object DiffCallback : DiffUtil.ItemCallback<Post>() {
         override fun areItemsTheSame(oldItem: Post, newItem: Post) =
             oldItem.id == newItem.id
