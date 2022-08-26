@@ -71,25 +71,64 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="avatar, published, options" />
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:textSize="16sp"
-        android:lineHeight="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/headerBarrier"
-        android:text="@string/content"
-        tools:targetApi="p"
-        tools:ignore="MissingConstraints" />
+    <ScrollView
+    android:id="@+id/detailsScroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toTopOf="@id/lowerBarrier"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/headerBarrier">
 
-    <include
-        android:id="@+id/videoFrameInPost"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/video_content_activity"
-        android:visibility="gone"
-        />
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_spacing"
+            android:layout_marginBottom="@dimen/common_spacing"
+            android:ellipsize="end"
+            android:text="@string/content"
+            app:layout_constraintBottom_toTopOf="@id/videoFrameInPost"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avatar"
+            tools:text="@tools:sample/lorem/random" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/postVideoGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            android:background="@android:color/background_light"
+            app:constraint_referenced_ids="videoFrameInPost" />
+
+        <include
+            android:id="@+id/videoFrameInPost"
+            layout="@layout/video_content_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content"
+            android:visibility="visible" />
+
+</LinearLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/lowerBarrier"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="like, share, eye" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
@@ -101,10 +140,10 @@
         app:icon="@drawable/ic_like_24dp"
         android:checkable="true"
         android:background="@drawable/ic_heart_24"
-        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintTop_toBottomOf="@id/lowerBarrier"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="990"
-    />
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/share"
@@ -116,7 +155,7 @@
         app:icon="@drawable/ic_share_24"
         android:checkable="true"
         app:layout_constraintLeft_toRightOf="@id/like"
-        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintTop_toBottomOf="@id/lowerBarrier"
         tools:text="990"
         />
 
@@ -130,7 +169,7 @@
         app:icon="@drawable/ic_eye_24"
         android:checkable="true"
         app:layout_constraintLeft_toRightOf="@id/share"
-        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintTop_toBottomOf="@id/lowerBarrier"
         tools:text="990"
         />
 
