@@ -1,22 +1,42 @@
 package ru.netology.nmedia.data.impl
 
 import android.app.Application
-import androidx.lifecycle.LiveData
+import android.content.Context
+import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.dto.Post
+import kotlin.properties.Delegates
 
 class FilePostRepository(private val application: Application
 ) : PostRepository {
 
     private val gson = Gson()
+    private val prefs = application.getSharedPreferences("repo", Context.MODE_PRIVATE)
     private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
-    private var posts = emptyList<Post>()
-    private var data = MutableLiveData(posts)
 
-    override fun getAll(): LiveData<List<Post>> = data
+    private var nextId: Long by Delegates.observable(prefs.getLong(NEXT_ID_PREFS_KEY, 0L)) {
+            _,_, newValue ->
+        prefs.edit{
+            putLong(NEXT_ID_PREFS_KEY, newValue)
+        }
+    }
+
+    private var posts
+        get() = checkNotNull(data.value) {
+            "Data value should not be null"
+        }
+        set(value) {
+            application.openFileOutput(FILE_NAME, Context.MODE_PRIVATE)
+                .bufferedWriter().use {
+                    it.write(gson.toJson(value))
+                }
+            data.value = value
+        }
+    override val data : MutableLiveData<List<Post>>
+
 
     init {
         val postsFile = application.filesDir.resolve(FILE_NAME)

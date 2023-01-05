@@ -2,52 +2,67 @@ package ru.netology.nmedia.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import ru.netology.nmedia.databinding.FragmentNewPostBinding
 import ru.netology.nmedia.util.StringArg
-import ru.netology.nmedia.viewModel.PostViewModel
 
 class NewPostFragment : Fragment() {
+
+private val initialContent
+get() = requireArguments().getString(INITIAL_CONTENT)
+
+private val args by navArgs<NewPostFragmentArgs>()
 
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val binding = FragmentNewPostBinding.inflate(
+    ) = FragmentNewPostBinding.inflate(
             inflater,
             container,
             false
-        )
+        ).also { binding ->
 
-        val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+            binding.edit.requestFocus()
+            binding.edit.setText(args.initialContent)
+            binding.ok.setOnClickListener {
+                onOkButtonClicked(binding)
+            }
+        }.root
 
-        arguments?.textArg?.let ( binding.edit::setText )
 
-        binding.edit.requestFocus()
 
-        binding.ok.setOnClickListener {
-            if (! binding.edit.text.isNullOrBlank()) {
-                val content = binding.edit.text.toString()
-                viewModel.onSaveButtonClicked(content)
+        private fun onOkButtonClicked(binding: FragmentNewPostBinding) {
+            val text = binding.edit.text
+            if (! text.isNullOrBlank()) {
+                val resultBundle = Bundle(1)
+                resultBundle.putString(RESULT_KEY, text.toString())
+                setFragmentResult(REQUEST_KEY, resultBundle)
             }
             findNavController().navigateUp()
         }
-        return binding.root
-    }
-
 
 
     companion object {
         var Bundle.textArg: String? by StringArg
         const val REQUEST_KEY = "requestKey"
         const val RESULT_KEY = "postNewContent"
+        private const val INITIAL_CONTENT = "initialContent"
+    }
+
+    fun create(initialContent: String?) = NewPostFragment().apply {
+        arguments = createBungle(initialContent)
+    }
+    private fun createBungle(initialContent: String?) = Bundle(1).apply {
+        putString(INITIAL_CONTENT, initialContent)
     }
 }
+
+
 
 

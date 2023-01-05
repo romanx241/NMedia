@@ -1,6 +1,5 @@
 package ru.netology.nmedia.data.impl
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.dto.Post
@@ -16,15 +15,14 @@ import ru.netology.nmedia.dto.Post
                 content = "Контент поста №${index + 1}",
                 published = "21 мая в 18:36",
                 likedByMe = false,
-                countLike = 990.0,
-                countShare = 990.0,
-                countEye = 990.0,
+                countLike = 990,
+                countShare = 990,
+                countEye = 990,
                 videoUrl = null
             )
         }
-        val data = MutableLiveData(posts)
+        override val data = MutableLiveData(posts)
 
-        override fun getAll(): LiveData<List<Post>> = data
 
         override fun like(postId: Long) {
             data.value = posts.map { it ->

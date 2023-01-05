@@ -31,7 +31,7 @@ object FunLife {
             in 999999..9999999 -> (usingJavaStringFormat(post.countEye / 1000000, 1) + "M").also { numberEye.text = it }
         }
     }
-    private fun usingJavaStringFormat(input: Double, scale: Int) = String.format("%.${scale}f", input)
+    private fun usingJavaStringFormat(input: Int, scale: Int) = String.format("%.${scale}f", input)
 
 }
 

@@ -15,7 +15,7 @@ class NewRepository (private val context: Context
     private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
     private var nextId = 1L
     private var posts = emptyList<Post>()
-    private val data = MutableLiveData(posts)
+    override val data = MutableLiveData(posts)
 
     init {
         val file = context.filesDir.resolve(FILE_NAME)
@@ -29,7 +29,7 @@ class NewRepository (private val context: Context
         }
     }
 
-    override fun getAll(): LiveData<List<Post>> = data
+    fun getAll(): LiveData<List<Post>> = data
 
 
     override fun like(postId: Long) {

@@ -34,18 +34,18 @@ import ru.netology.nmedia.dto.Post
         data.value = value
     }
 
-    override fun getAll(): LiveData<List<Post>> = data
+    fun getAll(): LiveData<List<Post>> = data
 
-     var data = MutableLiveData(List(GENERATED_POSTS_AMOUNT) { index ->
+     override var data = MutableLiveData(List(GENERATED_POSTS_AMOUNT) { index ->
         Post(
             id = index + 1L,
             author = "Нетология. Университет интернет-профессий будущего",
             content = "Контент поста №${index + 1}",
             published = "21 мая в 18:36",
             likedByMe = false,
-            countLike = 990.0,
-            countShare = 990.0,
-            countEye = 990.0,
+            countLike = 990,
+            countShare = 990,
+            countEye = 990,
             videoUrl = null
         )
      }

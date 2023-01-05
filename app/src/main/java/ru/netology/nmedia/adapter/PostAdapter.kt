@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.PostListItemBinding
-import ru.netology.nmedia.dto.FunLife
 import ru.netology.nmedia.dto.Post
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 typealias OnShareListener = (Post) -> Unit
 typealias OnEyeListener = (Post) -> Unit
@@ -23,7 +24,16 @@ internal class PostAdapter(
     private val shareCount: OnShareListener,
     private val eyeCount: OnEyeListener
 
-    ) : ListAdapter<Post, PostAdapter.ViewHolder>(DiffCallback) {
+) : ListAdapter<Post, PostAdapter.ViewHolder>(DiffCallback) {
+
+    private object DiffCallback : DiffUtil.ItemCallback<Post>() {
+        override fun areItemsTheSame(oldItem: Post, newItem: Post) =
+            oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: Post, newItem: Post) =
+            oldItem == newItem
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.d("PostAdapter", "onCreateViewHolder")
@@ -43,7 +53,7 @@ internal class PostAdapter(
         listener: PostInteractionListener,
         private val shareCount: OnShareListener,
         private val eyeCount: OnEyeListener,
-        private val funLife: FunLife = FunLife
+//        private val funLife: FunLife = FunLife
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var post: Post
@@ -52,7 +62,7 @@ internal class PostAdapter(
             CustomPopupMenu(itemView.context, binding.options).apply {
                 inflate(R.menu.options_post)
                 setOnMenuItemClickListener { menuItem ->
-                    when(menuItem.itemId){
+                    when (menuItem.itemId) {
                         R.id.remove -> {
                             listener.onRemoveClicked(post)
                             true
@@ -82,19 +92,31 @@ internal class PostAdapter(
                 listener.onVideoClicked(post)
             }
 
-            binding.options.setOnClickListener { popMenu()
+            binding.options.setOnClickListener {
+                popMenu()
             }
-            binding.options.setOnClickListener{ popupMenu.show()
+            binding.options.setOnClickListener {
+                popupMenu.show()
             }
         }
 
         private fun popMenu() {
-            if(post.content.isNotBlank()) {
-                popupMenu.menu.add(0, R.id.edit, Menu.NONE, itemView.context.getString(R.string.edit)).apply {
+            if (post.content.isNotBlank()) {
+                popupMenu.menu.add(
+                    0,
+                    R.id.edit,
+                    Menu.NONE,
+                    itemView.context.getString(R.string.edit)
+                ).apply {
                     setIcon(R.drawable.ic_baseline_edit_24)
                 }
             }
-            popupMenu.menu.add(0, R.id.remove, Menu.NONE, itemView.context.getString(R.string.remove)).apply {
+            popupMenu.menu.add(
+                0,
+                R.id.remove,
+                Menu.NONE,
+                itemView.context.getString(R.string.remove)
+            ).apply {
                 setIcon(R.drawable.ic_baseline_delete_24)
             }
         }
@@ -107,9 +129,12 @@ internal class PostAdapter(
                 content.text = post.content
                 like.text = post.likes.toString()
                 like.isChecked = post.likedByMe
-                funLife.onLikeClicked(like, post)
-                funLife.shareCount(share, post)
-                funLife.eyeCount(eye, post)
+//                funLife.onLikeClicked(like, post)
+//                funLife.shareCount(share, post)
+//                funLife.eyeCount(eye, post)
+                like.text = remakeCount(post.countLike)
+                share.text = remakeCount(post.countShare)
+                eye.text = remakeCount(post.countEye)
                 if (post.videoUrl != null) {
                     videoFrameInPost.root.visibility = View.VISIBLE
                     videoFrameInPost.videoUrl.text = post.videoUrl
@@ -118,15 +143,25 @@ internal class PostAdapter(
                 }
             }
         }
+
+        private fun remakeCount(count: Int) =
+            if (count < 1000) {
+                count.toString()
+            } else if (count < 1_000_000) {
+                val df = DecimalFormat("#.#")
+                df.roundingMode = RoundingMode.CEILING
+                "${df.format((count / 1000.0))}K"
+            } else {
+                val df = DecimalFormat("#.#")
+                df.roundingMode = RoundingMode.CEILING
+                "${df.format((count / 1000000.0))}M"
+            }
+        }
     }
 
-    private object DiffCallback : DiffUtil.ItemCallback<Post>() {
-        override fun areItemsTheSame(oldItem: Post, newItem: Post) =
-            oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: Post, newItem: Post) =
-            oldItem == newItem
-    }
-}
+
+
+
 
 
 

@@ -5,18 +5,24 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.adapter.PostInteractionListener
 import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.data.impl.NewRepository
+import ru.netology.nmedia.data.impl.PostRepositoryImpl
+import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.util.SingleLiveEvent
 
 
 class PostViewModel(application: Application): AndroidViewModel(application), PostInteractionListener {
 
-     private val repository: PostRepository = NewRepository(application)
-    val data = repository.getAll()
+     private val repository: PostRepository = PostRepositoryImpl(
+         dao = AppDb.getInstance(
+         context = application
+         ).postDao
+     )
+
+    val data by repository::data
     val currentPost = MutableLiveData<Post?>(null)
     val sharePostContent = SingleLiveEvent<String>()
-    val navigatePostContentScreenEvent = SingleLiveEvent<String>()
+    internal val navigatePostContentScreenEvent = SingleLiveEvent<String>()
     val editPostContent = SingleLiveEvent<String>()
     val playVideoContent = SingleLiveEvent<String>()
     val navigateToPostDetails = SingleLiveEvent<Long>()
@@ -47,9 +53,9 @@ class PostViewModel(application: Application): AndroidViewModel(application), Po
             author = "Roman",
             content = content,
             published = "Today",
-            countLike = 990.0,
-            countShare = 990.0,
-            countEye = 990.0,
+            countLike = 990,
+            countShare = 990,
+            countEye = 990,
             videoUrl = null
         )
         repository.save(post)

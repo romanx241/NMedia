@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
@@ -13,12 +12,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.FragmentPostBinding
-import ru.netology.nmedia.dto.FunLife
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.viewModel.PostViewModel
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class PostDetailsFragment : Fragment() {
 
+
+    private val initialContent
+        get() = requireArguments().getString(INITIAL_CONTENT)
 
     private val viewModel by viewModels<PostViewModel>(
         ownerProducer = ::requireParentFragment
@@ -77,11 +80,6 @@ class PostDetailsFragment : Fragment() {
             binding.share.setOnClickListener {
                 with(viewModel) { onShareClicked(post) }
             }
-
-            binding.videoFrameInPost.videoPoster.setOnClickListener {
-                with(viewModel) { onVideoClicked(post) }
-            }
-
             val popupMenu by lazy {
                 PopupMenu(layoutInflater.context, binding.options).apply {
                     inflate(R.menu.options_post)
@@ -103,8 +101,24 @@ class PostDetailsFragment : Fragment() {
 
             binding.options.setOnClickListener { popupMenu.show() }
         }
+        viewModel.navigatePostContentScreenEvent.observe(viewLifecycleOwner) { initialContent ->
+            val direction = FeedFragmentDirections.actionFeedFragmentToNewPostFragment(initialContent)
+            findNavController().navigate(direction)
+        }
+        }.root
 
-    }.root
+    private fun remakeCount(count: Int) =
+        if (count < 1000) {
+            count.toString()
+        } else if (count < 1_000_000) {
+            val df = DecimalFormat("#.#")
+            df.roundingMode = RoundingMode.CEILING
+            "${df.format((count / 1000.0))}K"
+        } else {
+            val df = DecimalFormat("#.#")
+            df.roundingMode = RoundingMode.CEILING
+            "${df.format((count / 1000000.0))}M"
+        }
 
     private fun FragmentPostBinding.render(post: Post) {
 
@@ -115,18 +129,21 @@ class PostDetailsFragment : Fragment() {
             content.text = post.content
             like.text = post.likes.toString()
             like.isChecked = post.likedByMe
-            FunLife.onLikeClicked(like, post)
-            FunLife.shareCount(share, post)
-            FunLife.eyeCount(eye, post)
+//            FunLife.onLikeClicked(like, post)
+//            FunLife.shareCount(share, post)
+//            FunLife.eyeCount(eye, post)
+            like.text = remakeCount(post.countLike)
+            share.text = remakeCount(post.countShare)
+            eye.text = remakeCount(post.countEye)
 
-            if (post.videoUrl != null) {
-                videoFrameInPost.root.visibility = View.VISIBLE
-                videoFrameInPost.videoUrl.text = post.videoUrl
-            } else {
-                videoFrameInPost.root.visibility = View.GONE
-            }
         }
     }
+
+    companion object {
+
+        private const val INITIAL_CONTENT = "initialContent"
+    }
+
 }
 
 

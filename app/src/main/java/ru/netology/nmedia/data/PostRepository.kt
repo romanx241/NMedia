@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import ru.netology.nmedia.dto.Post
 
 interface PostRepository {
-    fun getAll(): LiveData<List<Post>>
+
+    val data: LiveData<List<Post>>
+
     fun like(postId: Long)
     fun share(postId: Long)
     fun eye(postId: Long)
@@ -16,6 +18,5 @@ interface PostRepository {
     companion object{
         const val NEW_POST_ID = 0L
     }
-
 }
 
